@@ -1,23 +1,26 @@
 #!/usr/bin/python3
 """
-Base module
+Module: base.py
 """
-
 import models
 import uuid
 from datetime import datetime
 
-class BaseModel:
+
+class BaseModel():
     """
-    This class contains common class attributes and methods from which other classes inherit.
+    Base class which defines all common
+    attributes/methods for other classes
     """
-    def _init_(self, *args, **kwargs):
+
+    def __init__(self, *args, **kwargs):
         """
-        initializes the class and its attributes
+        instatiates an object with it's
+        attributes
         """
-        if len(kwargs)>0:
+        if len(kwargs) > 0:
             for key, value in kwargs.items():
-                if key == '_class_':
+                if key == '__class__':
                     continue
                 if key == "created_at" or key == "updated_at":
                     value = datetime.fromisoformat(value)
@@ -29,7 +32,7 @@ class BaseModel:
         self.updated_at = datetime.now()
 
         models.storage.new(self)
-    
+
     def __str__(self):
         """
         Returns the string representation
